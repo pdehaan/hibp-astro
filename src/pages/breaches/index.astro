@@ -1,11 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+
+import { getCollection } from 'astro:content';
+
+const breaches = await getCollection("breaches");
+const breachHtml = breaches.map(b => `<li><a href="${b.id}/">${b.data.Title}</a></li>`).join("\n");
 ---
 
 <Layout title="Breaches">
   <h1>Breach Index page.</h1>
-  <h2>TODO</h2>
-  <ul>
-    <li>How to display list of breaches without re-scraping HIBP api? content collection? sorcery? local data file?</li>
-  </ul>
+  <ul set:html={breachHtml}>
 </Layout>

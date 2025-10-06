@@ -1,31 +1,20 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from "../../layouts/Layout.astro";
 
-export interface BreachProps {
-  Name: string;
-  Title: string;
-  Domain: string;
-  BreachDate: Date;
-  PwnCount: number;
-  DataClasses: string[];
-  Description: string;
-  IsSensitive: boolean;
-  IsVerified: boolean;
-}
-
 export async function getStaticPaths() {
-  const breaches = await fetch("https://haveibeenpwned.com/api/v3/breaches").then(res => res.json());
-  return breaches.map((breach: BreachProps) => {
+  const breaches = await getCollection("breaches");
+  return breaches.map((b) => {
     return {
       params: {
-        slug: breach.Name.toLowerCase(),
+        slug: b.id,
       },
-      props: { breach },
-    };
+      props: {breach: b.data}
+    }
   });
 }
 
-const {breach} : {breach: BreachProps} = Astro.props;
+const {breach} = Astro.props;
 
 const list = new Intl.ListFormat("en");
 ---
