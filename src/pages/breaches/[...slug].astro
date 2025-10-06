@@ -1,0 +1,56 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+export interface BreachProps {
+  Name: string;
+  Title: string;
+  Domain: string;
+  BreachDate: Date;
+  PwnCount: number;
+  DataClasses: string[];
+  Description: string;
+  IsSensitive: boolean;
+  IsVerified: boolean;
+}
+
+export async function getStaticPaths() {
+  const breaches = await fetch("https://haveibeenpwned.com/api/v3/breaches").then(res => res.json());
+  return breaches.map((breach: BreachProps) => {
+    return {
+      params: {
+        slug: breach.Name.toLowerCase(),
+      },
+      props: { breach },
+    };
+  });
+}
+
+const {breach} : {breach: BreachProps} = Astro.props;
+
+const list = new Intl.ListFormat("en");
+---
+
+<Layout title={breach.Title}>
+  <section data-is-sensitive={breach.IsSensitive} data-is-verified={breach.IsVerified}>
+    <h1>{breach.Title}</h1>
+    <dl>
+      {
+        breach.Domain ? (
+          <dt>Domain</dt>
+          <dd>{breach.Domain}</dd>
+        ) : null
+      }
+
+      <dt>Breach Date</dt>
+      <dd>{breach.BreachDate}</dd>
+
+      <dt>Pwn Count</dt>
+      <dd>{breach.PwnCount.toLocaleString()}</dd>
+
+      <dt>Leaked Info</dt>
+      <dd>{list.format(breach.DataClasses)}</dd>
+    </dl>
+    <!-- Use `set:html` syntax since the Description field can contain HTML tags. -->
+    <p set:html={breach.Description} />
+  </section>
+</Layout>

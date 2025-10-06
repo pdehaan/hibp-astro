@@ -1,0 +1,20 @@
+{
+  "name": "hibp-astro",
+  "description": "Testing Astro routes and stuff w/ HIBP API.",
+  "version": "0.0.1",
+  "author": "Peter deHaan",
+  "dependencies": {
+    "astro": "^5.14.1"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "astro": "astro",
+    "build": "astro build",
+    "dev": "astro dev",
+    "preview": "astro preview"
+  },
+  "type": "module"
+}
