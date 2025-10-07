@@ -6,7 +6,9 @@
   "dependencies": {
     "astro": "^5.14.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "prettier-plugin-astro": "^0.14.1"
+  },
   "keywords": [],
   "license": "ISC",
   "main": "index.js",
@@ -14,7 +16,24 @@
     "astro": "astro",
     "build": "astro build",
     "dev": "astro dev",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
-  "type": "module"
+  "type": "module",
+  "prettier": {
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "plugins": [
+      "prettier-plugin-astro"
+    ],
+    "overrides": [
+      {
+        "files": "*.astro",
+        "options": {
+          "parser": "astro"
+        }
+      }
+    ]
+  }
 }

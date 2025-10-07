@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
@@ -9,24 +9,29 @@ export async function getStaticPaths() {
       params: {
         slug: b.id,
       },
-      props: {breach: b.data}
-    }
+      props: { breach: b.data },
+    };
   });
 }
 
-const {breach} = Astro.props;
+const { breach } = Astro.props;
 
 const list = new Intl.ListFormat("en");
 ---
 
 <Layout title={breach.Title}>
-  <section data-is-sensitive={breach.IsSensitive} data-is-verified={breach.IsVerified}>
+  <section
+    data-is-sensitive={breach.IsSensitive}
+    data-is-verified={breach.IsVerified}
+  >
     <h1>{breach.Title}</h1>
     <dl>
       {
         breach.Domain ? (
-          <dt>Domain</dt>
-          <dd>{breach.Domain}</dd>
+          <>
+            <dt>Domain</dt>
+            <dd>{breach.Domain}</dd>
+          </>
         ) : null
       }
 

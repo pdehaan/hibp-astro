@@ -19,13 +19,13 @@ const BreachSchema = z.object({
   PwnCount: z.number(),
 });
 
-type Breach = z.infer<typeof BreachSchema>;
+export type Breach = z.infer<typeof BreachSchema>;
 
 const breaches = defineCollection({
   async loader() {
-    const data: Breach[] = await fetch("https://haveibeenpwned.com/api/v3/breaches").then(
-      (r) => r.json()
-    );
+    const data: Breach[] = await fetch(
+      "https://haveibeenpwned.com/api/v3/breaches"
+    ).then((r) => r.json());
     return data.map((b: Breach) => ({
       id: b.Name.toLowerCase(),
       ...b,

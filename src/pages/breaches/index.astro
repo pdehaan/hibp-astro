@@ -1,13 +1,17 @@
 ---
+import { getCollection } from "astro:content";
+
 import Layout from "../../layouts/Layout.astro";
 
-import { getCollection } from 'astro:content';
-
 const breaches = await getCollection("breaches");
-const breachHtml = breaches.map(b => `<li><a href="${b.id}/">${b.data.Title}</a></li>`).join("\n");
+// NOTE: Wasn't sure if pre-rendering the HTML snippet as a single string was harder/better/faster/stronger
+// than thousands of micro DOM bindings by doing this below in the markup.
+const breachHtml = breaches
+  .map(({ id, data }) => `<li><a href="${id}/">${data.Title}</a></li>`)
+  .join("\n");
 ---
 
 <Layout title="Breaches">
-  <h1>Breach Index page.</h1>
-  <ul set:html={breachHtml}>
+  <h1>Breach Index page</h1>
+  <ul set:html={breachHtml} />
 </Layout>
