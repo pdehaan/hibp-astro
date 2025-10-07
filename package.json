@@ -4,7 +4,9 @@
   "version": "0.0.1",
   "author": "Peter deHaan",
   "dependencies": {
-    "astro": "^5.14.1"
+    "@astrojs/check": "^0.9.4",
+    "astro": "^5.14.1",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "prettier-plugin-astro": "^0.14.1"
@@ -15,6 +17,7 @@
   "scripts": {
     "astro": "astro",
     "build": "astro build",
+    "check": "astro check",
     "dev": "astro dev",
     "preview": "astro preview",
     "format": "prettier --check .",

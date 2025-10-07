@@ -1,8 +1,8 @@
 ---
-import Welcome from "../components/Welcome.astro";
-import Layout from "../layouts/Layout.astro";
-
 import { getEntry } from "astro:content";
+
+import Welcome from "@components/Welcome.astro";
+import Layout from "@layouts/Layout.astro";
 
 const adobe = await getEntry("breaches", "adobe");
 ---
